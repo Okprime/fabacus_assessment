@@ -1,0 +1,23 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    networks:
+      - fabacus
+    ports:
+      - 6379:6379
+    expose:
+      - 6379
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4500:4500"
+    networks:
+      - fabacus
+    depends_on:
+      - redis
+
+networks:
+  fabacus:
